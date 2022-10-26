@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32428.217
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "SSIS_SUPERSTORE_DW", "SSIS_SUPERSTORE_DW\SSIS_SUPERSTORE_DW.dtproj", "{C992680B-7D6F-4A8D-A0A3-6D98FA93F10B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C992680B-7D6F-4A8D-A0A3-6D98FA93F10B}.Development|Default.ActiveCfg = Development
+		{C992680B-7D6F-4A8D-A0A3-6D98FA93F10B}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {21341D86-651A-4A8C-8F3B-BF2BD9EA12DD}
+	EndGlobalSection
+EndGlobal

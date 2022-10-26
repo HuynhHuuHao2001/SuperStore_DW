@@ -1,0 +1,70 @@
+﻿--Câu 1 Tổng số lợi nhuận theo từng năm 
+select non empty [Measures].[Profit] on columns,
+non empty [Dim Time].[Order Year].children on rows
+from [SUPERSTORE DW]
+--Câu 2 Tổng số lợi nhuận của từng bang, từng thành phố
+select [Measures].[Profit] on columns,
+non empty ([Dim Region].[State Of US].children, [Dim Region].[City].children) on rows
+from [SUPERSTORE DW]
+--Câu 3 Top 5 thành phố có số hóa đơn nhiều nhất
+select [Measures].[Order ID Count] on columns,
+topcount([Dim Region].[City].children,3,[Measures].[Order ID Count]) on rows
+from [SUPERSTORE DW]
+--Câu 4 Top 10 mặt hàng (danh mục hàng) bán chạy nhất (số lượng bán nhiều nhất)
+select [Measures].[Quantity] on columns,
+(topcount([Dim Product].[Sub- Category].children,10,[Measures].[Quantity]),[Dim Product].[Category].children) on rows
+from [SUPERSTORE DW]
+--Câu 5 Số đơn hàng của từng bang qua các năm
+select non empty [Measures].[Order ID Count] on columns, 
+non empty ([Dim Time].[Order Year].children, [Dim Region].[State Of US].children ) on rows
+from [SUPERSTORE DW] 
+--Câu 6 Hình thức giao hàng phổ biến nhất ở Texas
+select [Measures].[Order ID Count] on columns,
+non empty [Dim Ship Mode].[Ship Mode].children on rows
+from [SUPERSTORE DW] 
+where [Dim Region].[State Of US].&[Texas];
+--Câu 7 Loại điện thoại (Phones) nào được bán nhiều nhất (sx giảm dần)
+select [Measures].[Quantity] on columns,
+non empty order([Dim Product].[Product Name].children,[Measures].[Quantity],DESC) on rows
+from [SUPERSTORE DW]
+where [Dim Product].[Sub- Category].&[Phones];
+--Câu 8 Năm có doanh thu hàng công nghệ (Technology) cao nhất
+select [Measures].[Profit] on columns,
+topcount([Dim Time].[Order Year].children,1,[Measures].[Profit]) on rows 
+from [SUPERSTORE DW]
+where [Dim Product].[Category].&[Technology];
+--Câu 9 Số tiền mua hàng của Claire Gute qua từng quý trong năm
+select [Measures].[Sales] on columns,
+non empty ([Dim Time].[Order Year].children, [Dim Time].[Order Quarter].children) on rows 
+from [SUPERSTORE DW]
+where [Dim Customer].[Customer Name].&[Claire Gute];
+--Câu 10 Ở New York City thì Consumer nào mua nhiều đồ nội thất (Furniture) nhất
+select [Measures].[Quantity] on columns, 
+non empty order([Dim Customer].[Customer Name].children,[Measures].[Quantity],DESC) on rows 
+from [SUPERSTORE DW]
+where ([Dim Region].[City].&[New York City],[Dim Product].[Category].&[Furniture]);
+--Câu 11 Liệt kê các sản phẩm có số lượng bán > 100
+select [Measures].[Quantity] on columns,
+[Dim Product].[Product Name].children 
+having [Measures].[Quantity]>100 on rows
+from [SUPERSTORE DW]
+--Câu 12 Top 5 sản phẩm được giảm giá nhiều nhất ở bang Washington
+select [Measures].[Discount] on columns,
+topcount([Dim Product].[Product Name].children,5,[Measures].[Discount]) on rows 
+from [SUPERSTORE DW]
+where [Dim Region].[State Of US].&[Washington];
+--Câu 13 Top 5 hóa đơn có đơn giá cao nhất ở thành phố Houston
+select [Measures].[Sales] on columns,
+topcount([Dim Order].[Order ID].children,5,[Measures].[Sales]) on rows
+from [SUPERSTORE DW]
+where [Dim Region].[City].&[Houston];
+--Câu 14 Tổng giá tiền các Home Office bỏ ra để mua văn phòng phẩm (Office Supplies), sắp xếp tăng dần
+select [Measures].[Sales] on columns,
+non empty order([Dim Customer].[Customer Name].children,[Measures].[Sales],ASC) on rows
+from [SUPERSTORE DW]
+where ([Dim Segment].[Segment].&[Home Office],[Dim Product].[Category].&[Office Supplies]);
+--Câu 15 Loại hàng nào được vận chuyển bằng phương thức First Class nhiều nhất (sx giảm dần)
+select [Measures].[Fact Count] on columns,
+non empty order([Dim Product].[Category].children,[Measures].[Fact Count],DESC) on rows
+from [SUPERSTORE DW]
+where [Dim Ship Mode].[Ship Mode].&[First Class];
